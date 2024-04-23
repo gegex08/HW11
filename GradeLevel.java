@@ -13,6 +13,7 @@ class GradeLevel {
         BufferedReader inputStream = null;
         try {
             inputStream = new BufferedReader(new FileReader("/Users/geneivaocampo/Desktop/Hello Genny.pdf"));
+            //inputStream = new BufferedReader(new FileReader("C:\\Users\\ocampog4446\\Desktop"));
             String line;
             while ((line = inputStream.readLine()) != null) {
                 processLine(line);
