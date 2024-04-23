@@ -12,11 +12,10 @@ class GradeLevel {
     public void readFile() throws IOException {
         BufferedReader inputStream = null;
         try {
-            inputStream = new BufferedReader(new FileReader("/Users/geneivaocampo/Desktop/Hello Genny.pdf"));
-            //inputStream = new BufferedReader(new FileReader("C:\\Users\\ocampog4446\\Desktop"));
+            inputStream = new BufferedReader(new FileReader("/Users/geneivaocampo/Desktop/File.docx"));
             String line;
             while ((line = inputStream.readLine()) != null) {
-                processLine(line);
+                readLine(line);
             }
         } finally {
             if (inputStream != null) {
@@ -25,24 +24,31 @@ class GradeLevel {
         }
     }
 
-    public void processLine(String line) {
+    public void readLine(String line) {
         String[] sentences = line.split("[.!?] ");
         NumSentences += sentences.length;
         for (String sentence : sentences) {
             String[] words = sentence.trim().split("\\s+");
             NumWords += words.length;
             for (String word : words) {
-                NumSyllables += word.length() / 3; //formula for syllables
-                 
+                NumSyllables += countSyllables(word); // counting syllables
             }
         }
     }
-    
 
-    public int calculateGradeLevel() {
-        
-        int gradelevel = 0.39 * ( NumWords / NumSentences) + 11.8 * ( NumSyllables / NumWords) - 15.59;
-        return gradelevel;
+    private int countSyllables(String word) {
+        int syllableCount = 0;
+        for (char token : word.toCharArray()) {
+            syllableCount += String.valueOf(token).length() / 3; // update the syllable count
+        }
+        return syllableCount;
+    }
+
+
+    public int calculateGradeLevel(int totalWords, int totalSentences, int totalSyllables) {
+        double wordsPerSentence = (double) totalWords / totalSentences;
+        int gradeLevel = (int) (0.39 * wordsPerSentence + 11.8 * totalSyllables / totalWords - 15.59);
+        return gradeLevel;
     }
 
     public int getNumWords() {
