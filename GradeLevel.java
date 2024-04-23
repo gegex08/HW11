@@ -38,8 +38,10 @@ class GradeLevel {
     }
     
 
-    public double calculateGradeLevel() {
-        return 0.39 * ((double) NumWords / NumSentences) + 11.8 * ((double) NumSyllables / NumWords) - 15.59;
+    public int calculateGradeLevel() {
+        
+        int gradelevel = 0.39 * ( NumWords / NumSentences) + 11.8 * ( NumSyllables / NumWords) - 15.59;
+        return gradelevel;
     }
 
     public int getNumWords() {
