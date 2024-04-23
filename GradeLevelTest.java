@@ -1,8 +1,5 @@
 package gradeleveltest;
-
-
 import java.io.IOException;
-
 
 public class GradeLevelTest {
 
@@ -13,9 +10,9 @@ public class GradeLevelTest {
         int WordsInLine = gradeLevel.getNumWords();
         int NumLines = gradeLevel.getNumSentences();
         int syllableCount = gradeLevel.getNumSyllables();
-        double gradeLevelValue = gradeLevel.calculateGradeLevel();
+        int gradeLevelValue = gradeLevel.calculateGradeLevel(WordsInLine, NumLines, syllableCount);
 
-        System.out.printf("Number of Words in Line %d is: %d \n", NumLines, WordsInLine);
+        System.out.printf("Number of Words in all  %d lines are %d\n", NumLines, WordsInLine);
         System.out.println("Syllable count: " + syllableCount);
         System.out.println("Grade level: " + gradeLevelValue);
     }
