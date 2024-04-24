@@ -3,7 +3,7 @@ import java.io.IOException;
 
 public class GradeLevelTest {
 
-    public static void main(String[] args) throws IOException {
+        public static void main(String[] args) throws IOException {
         GradeLevel gradeLevel = new GradeLevel();
         gradeLevel.readFile();
 
@@ -16,4 +16,5 @@ public class GradeLevelTest {
         System.out.println("Syllable count: " + syllableCount);
         System.out.println("Grade level: " + gradeLevelValue);
     }
+
 }
