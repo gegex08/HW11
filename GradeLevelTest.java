@@ -12,6 +12,8 @@ public class GradeLevelTest {
         int syllableCount = gradeLevel.getNumSyllables();
         int gradeLevelValue = gradeLevel.calculateGradeLevel(WordsInLine, NumLines, syllableCount);
 
+        
+        System.out.println("");
         System.out.printf("Number of Words in all  %d lines are %d\n", NumLines, WordsInLine);
         System.out.println("Syllable count: " + syllableCount);
         System.out.println("Grade level: " + gradeLevelValue);
