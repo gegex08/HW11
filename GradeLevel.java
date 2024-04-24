@@ -48,6 +48,8 @@ public class GradeLevel {
         
         for (String word : words) {
             System.out.println(word);
+            int syllables = countSyllables(word);
+            NumSyllables += syllables;
             System.out.println("Length: " + word.length());
             System.out.printf("Syllable: %d\n", word.length() / 3);
         }
@@ -60,7 +62,24 @@ public class GradeLevel {
         return gradeLevel;
     }
 
-    
+    private int countSyllables(String word) {
+    int syllableCount = 0;
+    boolean prevNonVowel = false;
+    String vowels = "aeiouy";
+
+    for (int i = 0; i < word.length(); i++) {
+        char c = Character.toLowerCase(word.charAt(i));
+        if (vowels.indexOf(c) != -1) {
+            if (!prevNonVowel) {
+                syllableCount++;
+                prevNonVowel = true;
+            }
+        } else {
+            prevNonVowel = false;
+        }
+    }
+    return Math.max(syllableCount, 1);
+}
     
     
     public int getNumWords() {
