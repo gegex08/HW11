@@ -1,85 +1,103 @@
 package gradeleveltest;
 
+/****************************************************
+ * Programmer: Geneiva Ocampo
+ * Course CSCI 1471
+ * Date 04/24/2024
+ * Assignment: Homework #10
+ * Environment Java with Netbeans
+ * Files Included: GradeLevel and GradeLevelTest and File.txt
+ * Purpose: Get the Gradelevel based on flesh Kincaid grade level formula 
+
+* Input: File.txt, Gettysburg.txt, declaration.txt, and green_eggs_and_ham.txt
+ * Preconditions/ Assumptions:the number of syllables for each word is the number of letters in the word divided by three Use integer math to calculate the number of syllables for each word
+ * Output: number of words, number of sentences, number of syllables and Kincaid Grade Level
+ * Postconditions/Assumptions: File Inputs
+ * Contraints: This program requires two classes  GradeLevel and GradeLevelTest  GradeLevel will be the repository for all methods other than main, used in the grade level calculations Examples  processLine, wordCount, sentenceCount, numberSyllables, ,,,.  GradeLevelTest will have the main method.
+ * Algorithm: 
+ * 1.	Ask app to read file from file path
+    2.	Get number of sentences 
+    3.	Get number of line, length, syllables words total of Syllables and grade
+
+ * 
+ ****************************************************/
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 public class GradeLevel {
-    private int NumLines = 0;
-    private int WordsInLine = 0;
-    private int NumWords = 0;
-    private int NumSentences = 0;
-    private int NumSyllables = 0;
+    public int NumLines = 0;
+    public int WordsInLine = 0;
+    public int NumWords = 0;
+    public int NumSentences = 0;
+    public int NumSyllables = 0;
 
     public void readFile() throws IOException {
         
 
         BufferedReader inputStream = null;
-        PrintWriter outputStream = null;
 
         try {
-            inputStream = new BufferedReader(new FileReader("/Users/geneivaocampo/Desktop/File.txt"));
-            outputStream = new PrintWriter(new FileWriter("/Users/geneivaocampo/Desktop/File1.txt"));
+            inputStream = new BufferedReader(new FileReader("/Users/geneivaocampo/Desktop/declaration.txt"));
             String l;
             while ((l = inputStream.readLine()) != null) {
-                outputStream.println(l);
                 printNums(l);
             }
         } finally {
             if (inputStream != null) {
                 inputStream.close();
             }
-            if (outputStream != null) {
-                outputStream.close();
-            }
+
         }
     }
 
     
-    private void printNums(String sentence) {
+    public void printNums(String sentence) {
+        
         NumLines++;
-        String[] sentences = sentence.split("[.!?] ");
+        String[] sentences = sentence.split("[.!?]");
         NumSentences += sentences.length;
 
         String[] words = sentence.split(" ");
         NumWords += words.length;
         
         for (String word : words) {
-            System.out.println(word);
-            int syllables = countSyllables(word);
-            NumSyllables += syllables;
+            NumSyllables += countSyllables(word);
+            System.out.println("Line " + NumLines + ": " + sentence);
             System.out.println("Length: " + word.length());
             System.out.printf("Syllable: %d\n", word.length() / 3);
         }
+        
+        
+        
+    }
+    public int countSyllables(String word) {
+    if (word.equals(0)) {
+        return 0;
     }
 
+    int syllables = word.length() / 3;
 
-    public int calculateGradeLevel(int totalWords, int totalSentences, int totalSyllables) {
-        double wordsPerSentence = (double) totalWords / totalSentences;
-        int gradeLevel = (int) (0.39 * wordsPerSentence + 11.8 * totalSyllables / totalWords - 15.59);
+    if (word.length() % 3 != 0) {
+        syllables++;
+    }
+    else
+    {
+        return syllables+1;
+    }
+    return syllables;
+    
+}
+    
+
+
+    public double calculateGradeLevel(double totalWords, double totalSentences, double totalSyllables) {
+
+    double gradeLevel = 0.39 * (totalWords / totalSentences) + 11.8 * (totalSyllables / totalWords) - 15.59;
         return gradeLevel;
     }
 
-    private int countSyllables(String word) {
-    int syllableCount = 0;
-    boolean prevNonVowel = false;
-    String vowels = "aeiouy";
-
-    for (int i = 0; i < word.length(); i++) {
-        char c = Character.toLowerCase(word.charAt(i));
-        if (vowels.indexOf(c) != -1) {
-            if (!prevNonVowel) {
-                syllableCount++;
-                prevNonVowel = true;
-            }
-        } else {
-            prevNonVowel = false;
-        }
-    }
-    return Math.max(syllableCount, 1);
-}
     
     
     public int getNumWords() {
